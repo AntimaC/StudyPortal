@@ -1,0 +1,80 @@
+ {% extends 'user/user_nav.html' %} 
+ {% comment %}
+ {% load static %} 
+
+{% block body %}
+
+<section class='text-center container'>
+
+    <div class="container">
+
+        <div class="content-section p-0 mt-5">
+
+            <div class="m-3">
+               <center> <h3>{{notes.title}}</h3></center>
+            </div>
+
+            <hr class="p-0 m-0">
+            <p class="description m-5 p-5">
+                {{notes.description|safe}}
+            </p>
+         
+        </div>
+
+    </div>
+
+</section>
+<center>
+ <a href="{%url 'dashboard:notes'%}"><button class="btn btn-primary d-inline  " style="margin-top:10%;margin-bottom:3%;">Go Back</button></a>
+<a href="{% url "dashboard:update_notes" pk=notes.id %}"><button class="btn btn-warning d-inline  "  style="margin-top:10%; margin-bottom:3%;">Update</button></a> 
+<a href="{% url "dashboard:download" pk=notes.id %}"><button class="btn btn-success d-inline  " style="margin-top:10%;margin-bottom:3%;">Download</button></a>
+<a href="{% url 'dashboard:delete_note' notes.id %}"><button class="btn btn-danger d-inline"  onclick="window.mytest()" style="margin-top:10%;margin-bottom:3%;">Delete</button></a></center>
+                        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this Notes?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                  
+
+ {% endblock body %}
+
+
+ {% endcomment %}
+
+
+
+{% load static %} 
+
+{% block body %}
+<style>
+    
+p{
+    font-size: 1rem;
+     line-height: 1.7;
+     font-family: 'Poppins', sans-serif;
+}
+</style>
+<section class='text-center container bg-white ' style="box-shadow:9px 8px 4px rgb(215 204 204);">
+
+    <div class="container">
+
+        <div class="content-section ">
+
+            <div class="m-3">
+                <h2 style="font-family: 'Archivo Black', sans-serif;">{{notes.title}}</h2>
+            </div>
+
+            <hr class="p-0 m-0">
+            <p class="description" >
+                {{notes.description|safe}}
+            </p>
+           
+        </div>
+
+    </div>
+
+</section>
+<center>
+ <a href="{%url 'dashboard:notes'%}"><button class="btn btn-primary d-inline  " style="margin-top:10%;margin-bottom:3%;">Go Back</button></a>
+<a href="{% url "dashboard:update_notes" pk=notes.id %}"><button class="btn btn-warning d-inline  "  style="margin-top:10%; margin-bottom:3%;">Update</button></a> 
+<a href="{% url "dashboard:download" pk=notes.id %}"><button class="btn btn-success d-inline  " style="margin-top:10%;margin-bottom:3%;">Download</button></a>
+<a href="{% url 'dashboard:delete_note' notes.id %}"><button class="btn btn-danger d-inline"  onclick="window.mytest()" style="margin-top:10%;margin-bottom:3%;">Delete</button></a></center>
+                        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this Notes?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                  
+{% endblock body %}

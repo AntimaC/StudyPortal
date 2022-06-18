@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Study Portal- Admin Dashboard</title>
+    {% load static %}
+    <!--boostrap cdn-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!--my CSS-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+
+    <!--google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!--DataTable-->
+    <link rel="stylesheet" href="{% static 'js/plugins/datatables/dataTables.bootstrap4.min.css' %}"/>
+   <link rel="stylesheet" id="css-main" href="{% static 'css1/codebase.min.css' %}"/>
+
+</head>
+  <body>
+<div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
+<!--Strat Sidebar-->>
+<nav id="sidebar">
+        <div id="sidebar-scroll">
+          <div class="sidebar-content">
+            <div class="content-header content-header-fullrow px-15">
+              <div class="content-header-section sidebar-mini-visible-b">
+                  <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn"> </span>
+                  <span class="text-dual-primary-dark">c</span><span class="text-primary">b</span>
+               </div>
+               <div class="content-header-section text-center align-parent sidebar-mini-hidden">
+                  <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                  <i class="fa fa-times text-danger"></i></button>
+                   <div class="content-header-item">
+                      <a class="link-effect font-w700" href="">
+                         <i class='bx bxs-book-reader text-primary'style="font-size:1.9rem; margin-left:-5%; "></i>
+                        <span class="font-size-xl text-primary" style="margin-right:-1%;font-size: 1.8rem;font-weight: 700;font-family: 'Archivo Black', sans-serif;">Study Portal</span>
+                      </a>
+                    </div>
+                </div>
+            </div>
+  <div class="content-side content-side-full content-side-user px-10 align-parent">
+      <div class="sidebar-mini-visible-b align-v animated fadeIn">
+          <img src="{% static 'imgage/admin.jpg' %}" alt="">
+      </div>
+      <div class="sidebar-mini-hidden-b text-center">
+        <a class="img-link" href="be_pages_generic_profile.html">
+          <img class="img-avatar" src="{% static 'images/admin.jpg' %}" alt="">
+        </a>
+        <ul class="list-inline mt-10">
+          <li class="list-inline-item">
+             <a class="link-effect text-dual-primary-dark font-size-xs font-w600 text-uppercase" href="{% url 'dashboard:admin_home' %}">{{ request.user.username }}</a>
+          </li>
+          <li class="list-inline-item">
+              <a class="link-effect text-dual-primary-dark" href="{% url 'accounts:Logout' %}">
+            <i class='bx bxs-left-arrow'></i>
+             </a>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+  <div class="content-side content-side-full">
+        <ul class="nav-main">
+            <li class="open">
+            <a href="{%url 'dashboard:admin_home'%}"><i class="fas fa-home"></i><span class="sidebar-mini-hide">Home</span></a>
+            </li>
+            <li>
+            <a class="nav-submenu" data-toggle="nav-submenu"> <i class='bx bxs-notepad'></i><span class="sidebar-mini-hide"></span> Notes</a>
+        <ul>
+          <li>
+            <a href="{%url 'dashboard:pending_notes'%}">Pending Notes</a>
+          </li>
+          <li>
+            <a href="{%url 'dashboard:accepted_notes'%}">Accepted Notes</a>
+          </li> 
+          <li>
+           <a href="{%url 'dashboard:rejected_notes'%}">Rejected Notes</a>
+          </li>
+         <li>
+            <a href="{%url 'dashboard:all_notes'%}">All Notes</a>
+         </li>
+      </ul>
+           </li>
+            <li class="open">
+                <a href="{%url 'dashboard:forum_a'%}"><i class="bx bxs-message-dots"></i><span class="sidebar-mini-hide">Forum</span></a>
+            </li>
+            <li>
+              <a  href="{%url 'dashboard:showallusers'%}"><i class="bx bxs-group"></i></i><span class="sidebar-mini-hide"> Users</span></a>
+            </li>
+            <br><br>
+            <li>
+            <a class="nav-submenu" data-toggle="nav-submenu"><i class='bx bxs-cog'></i><span class="sidebar-mini-hide"></span>Settings</a>
+      <ul>
+          <li>
+            <a href="{%url 'accounts:admin_change_password'%}">Change Password</a>
+          </li>
+          <li>
+            <a href="{%url 'accounts:admin_profile'%}">Profile</a>
+          </li>
+      </ul>
+          </li>
+      </ul>
+    
+    </div>
+ </div>
+</div>
+</nav>
+<!--End Sidebar-->
+{% include "instructor/admin_nav.html" %}
+ {% if messages %} {% for msg in messages %}
+      <div class="alert alert-{{msg.tags}} alert-dismissible fade show my-0">
+        <strong>{{ msg }}</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      {% endfor %} {% endif %}
+{% block body %}
+{% endblock body %}
+
+</div>
+
+
+
+ <!-- Codebase Core JS --> 
+         <script src="{% static 'js/core/jquery.min.js' %}"></script>
+        <script src="{% static 'js/core/popper.min.js' %}"></script>
+        <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/core/jquery.slimscroll.min.js' %}"></script>
+        <script src="{% static 'js/core/jquery.scrollLock.min.js' %}"></script>
+        <script src="{% static 'js/core/jquery.appear.min.js' %}"></script>
+        <script src="{% static 'js/core/jquery.countTo.min.js' %}"></script>
+        <script src="{% static 'js/core/js.cookie.min.js' %}"></script>
+        <script src="{% static 'js/codebase.js' %}"></script>
+
+        <!-- Page JS Plugins -->
+       <script src="{% static 'js/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'js/plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        <!-- Page JS Code -->
+        <script src="{% static 'js/pages/be_tables_datatables.js' %}"></script> 
+    </body>
+</html>

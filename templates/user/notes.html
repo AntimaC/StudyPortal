@@ -1,0 +1,123 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+{% load crispy_forms_tags %}
+<style>
+    .card-body{
+        color:#000;
+    }
+     .card-body:hover{
+         color:blue;
+     }
+     .card-header:hover{
+         color:pink;
+     }
+     .card{
+         font-family: 'Poppins', sans-serif;
+          
+           box-shadow: 15px 15px 10px rgb(78, 77, 77);
+
+     }
+     .card-header{
+           background-color:  rgb(59, 45, 250);;
+           color:#fff;
+     }
+     .card-header:hover{
+          background: rgb(11, 22, 83) !important;
+  color: whitesmoke !important;
+  transition: 1.5s ease-in;
+     }
+     .card:hover{
+          transform: translateY(-10px);
+     }
+     #div_id_title{
+         font-weight: 700;
+     }
+     #div_id_description{
+font-weight: 700
+     }
+     #id_title{
+         
+         width:84%;
+     }
+     #id_description{
+        height:900px;
+        width:100%;
+     }
+     body:before,
+body:after{
+        content:'';
+        display:block;
+        height:0;
+        width:0;
+        overflow:hidden;
+}
+</style>
+ <div class="container mt-4">
+    <div class="row">
+        {% for note in notes %}
+        <div class="col-md-3">
+            <a href="{% url 'dashboard:notes-detail' note.id %}">
+                <div class="card">
+                    <div class="card-header ">{{note.title}}</div>
+                    <div class="card-body">{{note.description|safe|truncatewords:"8"|linebreaks}}</div>
+                    <div class="card-footer mt-auto ">
+                        <a href="{% url 'dashboard:notes-detail' note.id %}"><i class="fa-solid fa-eye fa-2x" style="color:hsl(310, 64%, 44%);"></i></a> 
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url "dashboard:update_notes" pk=note.id %}"><i class="fa-solid fa-file-pen fa-2x"></i></a> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url "dashboard:download" pk=note.id %}"><i class="fa-solid fa-circle-down fa-2x" style="color:green;"></i></a>
+
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url 'dashboard:delete_note' note.id %}">
+                        <i class="fa fa-trash fa-2x" onclick="window.mytest()" style="color:red;"></i></a>
+                        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this Notes?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                  
+</div>
+                </div>
+            </a>
+        </div>
+        {%endfor%}
+        <br><br>
+
+    </div>
+</div> 
+{% comment %} <div class="container mt-4">
+    <div class="row">
+        {% for note in notes %}
+        <div class="col-md-3">
+            <a href="{% url 'dashboard:notes-detail' note.id %}">
+                <div class="card">
+                    <div class="card-header">{{note.title}}</div>
+                    <div class="card-body">{{note.description|safe|slice:"0:100"}}</div>
+                    <div class="card-footer mt-auto "><a href="{% url 'dashboard:delete_note' note.id %}">
+                        <i class="fa fa-trash fa-2x"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {%endfor%}
+        <br><br>
+
+    </div>
+</div> {% endcomment %}
+<br><br>
+<div class="container">
+
+    <form method="POST">
+        <div class="form-group">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 mt-4" style="font-weight: 700;">Create Notes</legend>
+           
+        </fieldset>
+        
+        {{form|crispy}}
+          {{form.media}} 
+        <div class="form-group">
+            <button href="" class="btn btn-primary" type="submit">
+                Create
+            </button>
+        </div>
+    </div>
+    </form>
+</div>
+  
+{% endblock body%}

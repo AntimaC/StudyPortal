@@ -1,0 +1,72 @@
+{% extends 'user/user_nav.html' %}
+{% block title %}Update Task {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+
+
+    <div class="container">
+        <div class="row mt-3 pt-3">
+            <div class="col-md-3">
+                <div class="border p-3 shadow">
+    <h4>Statistics</h4>
+    <hr>
+    <div class="border mb-3 p-2">
+        <h3>Total</h3>
+        <h4 class="text-center">{{ count_todos }}</h4>
+    </div>
+    <div class="border mb-3 p-2">
+        <h3>Completed</h3>
+        <h4 class="text-center">{{ count_completed_todo }}</h4>
+    </div>
+    <div class="border mb-3 p-2">
+        <h3>Uncompleted</h3>
+        <h4 class="text-center">{{ uncompleted }}</h4>
+    </div>
+</div>
+            </div>
+            <div class="col-md-6">
+               <div class="border p-3">
+    <h4>Deelete Task</h4>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="alert alert-danger">
+            <p>Are you sure you want to delete</p>
+        </div>
+        <a class="btn btn-secondary btn-sm" href="{% url 'dashboard:todo' %}">Cancel</a>
+        <input class="btn btn-danger btn-sm" type="submit" name="Confirm">
+    </form>
+</div>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body%}

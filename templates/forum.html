@@ -1,0 +1,272 @@
+
+{% load static %}
+{% if user.is_superuser or user.is_staff %}
+<html lang="en" class="no-focus">
+    <head>
+      <!--Bootstrap CDN-->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+   <!--Boxicon-->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!--My CSS-->
+   <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" id="css-main" href="{% static 'css1/codebase.min.css' %}"/>
+
+    </head>
+    <body>
+    <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">  
+         {% include "instructor/sidebar.html" %}
+         {% include "instructor/admin_nav.html" %}
+            <!-- Main Container -->
+          <main id="main-container">
+              <!-- Page Content -->
+             <div class="content">
+                <style>
+                  .post{
+                   
+                    font-weight:500;
+                   font-family: 'Poppins', sans-serif;
+                   
+                  } 
+                .text{
+                    font-weight:400;
+                   font-family: 'Poppins', sans-serif;
+                 
+                  } 
+                .font{
+                   font-weight:600;
+                   }
+              .forumcardheader {
+                display: flex;
+                align-items: center;
+                 border-bottom-width: 1px;
+                 padding-top: 0;
+                 padding-bottom: 0;
+                 padding-right: 0.625rem;
+                 height: 3.5rem;
+                 text-transform: uppercase;
+                 background-color: #fff;
+                 border-bottom: 1px solid rgba(26, 54, 126, 0.125);
+                 font-weight:500;
+            }
+            .f{
+              font-weight:900;
+             }
+             .bluebtn{
+            background-color:#1a8cff;
+            
+         }
+         hr{border: 0.1px solid ;}
+</style>   
+{% comment %} <center><h3 class="text-danger mb-4">Manage posts </h3></center>
+<hr class="mb-4" style="margin-bottom:5%;"> {% endcomment %}
+
+<div class="container my-4 ">
+{% for post in posts %}
+    <div class="container-fluid mt-10">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card mb-4 forumcardcss">
+                  <div class="card-header forumcardheader">
+                      <div class="media flex-wrap w-100 align-items-center imgcss"> <img src="/media/{{post.image}}" 
+                              class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">  <p class="ml-4 usernamecss">  {{post.user1}} </p>
+                           <div class="media-body ml-3"> {% comment %}<a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Add or See reply </button>  </a> {% endcomment %}
+                          </div>
+                          <div class="text-muted small ml-3">
+                            <div class="px-4 pt-3 f" >  {{post.timestamp}} </div>
+                           
+                          </div>
+                           {% if user.is_superuser or user.is_staff %}
+                            <a href="{% url 'dashboard:delete_post' post.id %}"> <button class="btn btn-danger btn-sm text" onclick="window.mytest()"style="background-color: #e60000;">Delete</button></a>
+                            <script type="text/javascript">window.mytest = function() { var isValid = confirm('If you click ok then its delete this post and related reply on it. Are you sure to delete?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                            {% endif %}
+                        
+                          </div>
+                       </div>         
+                   <div class="card-body forumcardbody">
+                     
+                     
+                      <p class="text">{{ post.post_content|linebreaks|truncatewords_html:10 }}</p>{% if post.post_content|length|get_digit:"-1" > 50 %} 
+                     
+       <a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Show more </button>  </a>
+                 {% endif %}
+                </div>
+                  <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">View Replies </button>  </a> 
+
+                     {% if post.user1 == request.user %}
+                        <a href="{% url "dashboard:edit_post" pk=post.id %}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Edit</button>  </a>
+                        {% endif %}
+
+                       {% if user.is_superuser or user.is_staff %}
+                        <a href="{% url "dashboard:edit_post" pk=post.id %}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Edit</button>  </a>
+                        {% endif %}
+                        {% if post.replie_set.count > 0 %}
+                            <p class="text" style="  margin-left: auto; color:green;">Answered  &nbsp;({{post.replie_set.count}}) &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</p>
+                          {% else %}
+                       <p class="text"style="margin-left: auto; color:red;">Not answered yet &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</p>
+                        {% endif %}
+                       
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Codebase Core JS -->
+<script src="{% static 'js/core/jquery.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.scrollLock.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.appear.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.countTo.min.js' %}"></script>
+<script src="{% static 'js/core/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/codebase.js' %}"></script>     
+</body>
+</html>
+
+{% else %}
+  {% include "user/user_nav.html" %}
+
+
+
+
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div class="container my-4 ">
+ 
+<div class="jumbotron"style="margin-bottom: 5%;    text-align: center;">
+    <h1 class="display-4 font">Disscussion Forum</h1>
+    <center class="lead post">Welcome to {{branch}} discussion forum. You can post your question or any related queries by simply clicking on the add post button.</>
+    <hr class="my-4">
+    <p class="post">You can also reply to others post by clicking on add or view reply button.</p>
+      <button class="btn btn-primary btn-lg text" data-target="#questions" data-toggle="modal" role="button">Add Post</button>
+    </div>
+ 
+  
+     {% if user_posts == 0 %}
+    <div class="jumbotron">
+  <h4 class="">No Results fountd</h4>
+  <p class="lead">Be the first person to ask question</p>
+  
+</div>
+   {% endif %}
+    
+    {% for post in posts %}
+    <div class="container-fluid mt-10">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card mb-4 forumcardcss">
+                  <div class="card-header forumcardheader">
+                      <div class="media flex-wrap w-100 align-items-center imgcss"> <img src="/media/{{post.image}}" 
+                              class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">  <p class="ml-4 usernamecss">  {{post.user1}} </p>
+                           <div class="media-body ml-3"> {% comment %}<a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Add or See reply </button>  </a> {% endcomment %}
+                          </div>
+                          <div class="text-muted small ml-3">
+                            <div class="px-4 pt-3 f" >  {{post.timestamp}} </div>
+                           
+                          </div>
+                           {% if user.is_superuser or user.is_staff %}
+                            <a href="{% url 'dashboard:delete_post' post.id %}"> <button class="btn btn-danger btn-sm text" onclick="window.mytest()"style="background-color: #e60000;">Delete</button></a>
+                            <script type="text/javascript">window.mytest = function() { var isValid = confirm('If you click ok then its delete this post and related reply on it. Are you sure to delete?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                            {% endif %}
+                        
+                          </div>
+                       </div>         
+                   <div class="card-body forumcardbody">
+                     
+                     
+                      <p class="text">{{ post.post_content|linebreaks|truncatewords_html:10 }}</p>{% if post.post_content|length|get_digit:"-1" > 50 %} 
+                     
+       <a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Show more </button>  </a>
+                 {% endif %}
+                </div>
+                  <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <a href="/discussion/{{post.id}}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Add or View reply </button>  </a> 
+
+                     {% if post.user1 == request.user %}
+                        <a href="{% url "dashboard:edit_post" pk=post.id %}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Edit</button>  </a>
+                        {% endif %}
+
+                       {% if user.is_superuser or user.is_staff %}
+                        <a href="{% url "dashboard:edit_post" pk=post.id %}" data-abc="true"><button class="btn btn-light text" style="color:blue; font-size: 13px;">Edit</button>  </a>
+                        {% endif %}
+                        {% if post.replie_set.count > 0 %}
+                            <p class="text" style="  margin-left: auto; color:green;">Answered  &nbsp;({{post.replie_set.count}}) &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</p>
+                          {% else %}
+                       <p class="text"style="margin-left: auto; color:red;">Not answered yet &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</p>
+                        {% endif %}
+                       
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="questions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="modal-body">
+          
+          <form action="/forum" method="POST">
+         {% csrf_token %}
+          <div class="form-group">
+          <label style="font-size:1rem; font-weight:bold;">Post Your Question Here</label>
+
+        <input type="hidden" name="branch" class="form-control" value="{{branch}}" >
+                
+        
+        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+          
+          </div>
+        </div>
+        {% else %}
+        <h3>Please Login to post</h3>
+        {% endif %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   </div>
+                  
+{% endblock body %}
+{% endif %}

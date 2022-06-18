@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Log In {% endblock %}
+{% block loginactive %} active {% endblock loginactive %}
+{% load static %}
+
+
+{% block body %} 
+
+   
+<div id="login-box">
+    <div class="items">
+      <h1 style="margin-bottom:7%;">Log In</h1>
+              <form action="user_login" method="post"> {% csrf_token %}
+      <input type="text" class="inputcss" name="username" placeholder="Username" required/>
+      <input type="password" class="inputcss" name="password" placeholder="Password" required/>      
+      <input type="submit" class="rlbtn" name="signup_submit" value="Log In" />       
+      <a href="{% url 'password_reset' %}">forgot password</a> &nbsp;&nbsp; 
+      <br><br><br><br>
+      
+     <center>Not registered yet? <a href="{% url 'accounts:register' %}">Register</a> </center>
+    </div>  
+   
+  </div>
+  
+ {% comment %} <a href="{% url 'password_reset' %}">forgot password</a> {% endcomment %}
+  {% endblock body%}

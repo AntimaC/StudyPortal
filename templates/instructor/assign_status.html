@@ -1,0 +1,32 @@
+{% extends 'instructor/admin_base.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .fontcss{
+ font-family: 'Poppins', sans-serif;
+font-weight:bold;}
+</style>
+<div id="page-container" >
+        <main id="main-container">
+        <div class="container "style="width:60%;">
+         <h2 class="text-center fontcss mt-4 mb-4" >Assign Status</h2>
+        <hr style="border: 1px solid rgb(55, 13, 206);">
+
+       <form method="post">
+        {% csrf_token %}
+        <label class="fontcss">Notes ID</label>
+        <input type="text" name="noteid" class="form-control" value="{{notes.id}}" readonly>
+
+        <label class="mt-4 fontcss">Status</label>
+        <select name="status" class="form-control fontcss">
+        <option value="Accept">Accept</option>
+        <option value="Reject">Reject</option>
+        </select>
+        <br>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+
+</div>
+</main>
+ </div>
+{% endblock body %}

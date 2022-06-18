@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} Register {% endblock %}
+{% block registeractive %} active {% endblock registeractive %}
+{% load static %}
+{% block body %} 
+<br>
+ <style>
+   #box {
+  position: relative;
+  margin: 5% auto;
+  width: 700px;
+  height: 550px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+ </style>
+<div id="box">
+    <div class="items">
+      <h1>User Register</h1>
+        <form action="register" method="post"> {% csrf_token %}
+         {%if error%}
+        <div class="alert alert-danger "  role="alert" style="padding: 0;color: red;text-align: center;">
+          <small class="manual-alter">{{error}}</small>
+       </div>
+
+       {%endif%}
+      <input type="text" class="inputcss" name="username" placeholder="Username" value="{{values.username}}" required />
+      <input type="email" class="inputcss" name="email" placeholder="E-mail" value="{{values.email}}" required/>
+      <input type="text" class="inputcss" name="first_name" placeholder="First Name" value="{{values.firstname}}" required />
+      <input type="text" class="inputcss"  name="last_name" placeholder="Last Name" value="{{values.lastname}}" required />
+      <input type="password" class="inputcss" name="password" placeholder="Password"required />
+      <input type="password" class="inputcss" name="confirm_password" placeholder="Confirm your password" required/>
+       <select class=" inputcss" name="branch">
+						  <option value="">Select Branch </option>
+              <option value="Computer Science">Computer Science</option>
+						  <option value="Computer Science">IT</option>
+						  <option value="Civil">Civil</option>
+						  <option value="Electronics">Electronics</option>
+						  <option value="Electric">Electric</option>
+						   <option value="Mechanical">Mechanical</option>
+				</select>
+      <input type="submit"  class="rlbtn" name="signup_submit" value="Register" />
+    </div>   
+  </div>
+ <br>
+  {% endblock body %}
+

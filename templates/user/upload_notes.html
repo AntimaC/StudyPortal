@@ -1,0 +1,72 @@
+
+ {% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container card shadow mt-5 "
+		style="font-family: 'IBM Plex Sans', sans-serif;">
+		<a href="{%url 'dashboard:notessharing'%}"><button class="btn btn-primary d-inline mt-2 " style="margine-left:-14px;">Go Back</button></a>
+	<div class="card-body">
+	<h2 class="text-center text-danger " style="margin-top:-1%">Upload Notes</h2>
+	<hr>
+		<div class="row">
+			<div class="col-sm-6">
+				<img src="{% static 'images/study.jpg' %}" style="width: 90%; height: 500px" class="mt-3">
+			</div>
+
+			<div class="col-sm-6">
+                <form method="post" enctype="multipart/form-data" class="mt-4">
+                    {% csrf_token %}
+					<label style="font-weight:600;">Branch:</label>
+					<select class="form-control" name="branch" readonly>
+						  <option value="{{branch}}">{{branch}}</option>
+						</select>
+  <div class="form-group mt-4">
+<label style="font-weight:600;">Subject:</label>
+<input type="text" class="form-control"  name="subject">
+
+  </div>
+  <div class="form-group mt-4">
+    
+    
+                         </div>
+                        <div class="form-group mt-4">
+						<label style="font-weight:600;">Fyle Type:</label>
+
+                       <select class="form-control" name="filetype">
+						<option value="">Select</option>
+						<option value="PDF">PDF</option>
+						<option value="PPT">PPT</option>
+						<option value="DOC/DOCX">DOC/DOCX</option>
+						<option value="TXT">TXT</option>
+						<option value="ZIP/RAR">ZIP</option>
+					  </select>
+					   {%if error%}
+        <div class="alert alert-danger "  role="alert" style="padding: 0;color: red;text-align: center;">
+          <small class="manual-alter">{{error}}</small>
+       </div>
+       {%endif%}
+                     </div>
+  <div class="form-group mt-4">
+	  <label style="font-weight:600;">Notes File:</label>
+
+    <input type="file" name="notesfile" style=""name="notesfile" class="form-control" style="padding:0;">
+
+  </div>
+  <div class="form-group mt-4">
+	<label style="font-weight:600;">description:</label>
+
+    <textarea class="form-control" name="description" rows="3"></textarea>
+  </div>
+  <div class="form-group mt-4">
+   <center> <input type="submit" class="btn btn-primary mt-2 d-inline" value="Upload"> </center>
+
+  </div>
+</form>
+</div>
+</div>
+</div>
+  
+</div>
+<br>
+{% endblock body%} 

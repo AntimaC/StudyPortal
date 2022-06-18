@@ -1,0 +1,25 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<div class="container mt-4">
+
+    <form method="POST">
+        <div class="form-group">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 mt-4" style="margin-top:10%;">Update Notes</legend>
+        </fieldset>
+       {{form.media}}
+        {{form|crispy}}
+        <div class="form-group">
+            <button href="" class="btn btn-primary" type="submit">
+            Update
+            </button>
+        </div>
+    </div>
+    </form>
+</div>
+
+{% endblock body%}

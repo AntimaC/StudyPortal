@@ -1,0 +1,80 @@
+{% extends 'user/user_nav.html' %}
+{% block title %}Home Page{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <div class="row mt-3 pt-3">
+            <div class="col-md-3">
+                <div class="border p-3 shadow">
+    <h4>Statistics</h4>
+    <hr>
+    <div class="border mb-3 p-2">
+        <h3>Total</h3>
+        <h4 class="text-center">{{ count_todos }}</h4>
+    </div>
+    <div class="border mb-3 p-2">
+        <h3>Completed</h3>
+        <h4 class="text-center">{{ count_completed_todo }}</h4>
+    </div>
+    <div class="border mb-3 p-2">
+        <h3>Uncompleted</h3>
+        <h4 class="text-center">{{ uncompleted }}</h4>
+    </div>
+</div>
+            </div>
+            <div class="col-md-6">
+               <div class="border p-3 shadow">
+                   <script src=" {% static 'jquery.js' %}"></script>
+      <script src=" {% static 'jquery.datetimepicker.full.min.js' %}"></script>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+      
+        <button type="submit" class="btn btn-success btn-block">Submit</button>
+    </form>
+
+   <script>
+     var options={
+        dateFormat: 'yy-mm-dd',
+      };   
+    $("#pick").datetimepicker(options);
+
+
+
+</script>
+
+    <hr>
+
+    {% for todo in todos %}
+    <div class="border bg-muted p-3 mb-3">
+        <p> <small>{{ todo.date_created }}</small></p>
+        <div class="row">
+            <div class="col-md-8">
+                {% if todo.complete == True %}
+                <p><span class="btn btn-success btn-sm mr-2"><i class="far fa-check-circle"></i>
+                    </span></i>{{ todo.content }}</p>
+                {% else %}
+                <p>{{ todo.content }}</p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-info btn-sm mx-1" href="{% url 'dashboard:todos-update' todo.id %}">Edit</a>
+                <a class="btn btn-danger btn-sm mx-1" href="{% url 'dashboard:todos-delete' todo.id %}">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            
+        </div>
+    </div>
+
+
+
+{% endblock body%}

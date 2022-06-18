@@ -1,0 +1,53 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+<style>
+.inner_contanner {
+  background-color:lightgray;
+  border-radius: 8px;
+  
+}
+.divcss{
+  margin-top:12%;
+}
+h2,
+h4 {
+  padding: 10px;
+   font-family: 'Poppins', sans-serif;
+}
+.divcss:hover{
+  transform:translateY(-10px)
+}
+.bg{
+     width: 100%;
+    height:600px;
+}
+    
+{% comment %} }class="bg "style="background-image: url('{% static "images/bgimg1.jpg"%}')"; {% endcomment %}
+</style>
+<section  class=" bg "style="background-color: rgb(233, 227, 227);";>
+<div class="container">
+  <div class="row">
+   <div class="col-sm-4 text-center divcss">
+   <div class="inner_contanner"style="background-color: rgb(73, 159, 240);;">
+   <h2 style="color:rgb(29, 252, 22);"><i class='bx bxs-file-export'styel="background: var(--light-blue);"></i></h2>
+   <a href="{%url 'dashboard:upload_notes'%}"><h4 class="" style="color:black;font-weight:500;">Upload Notes</h4></a>
+   </div>
+   </div>
+   <div class="col-sm-4 text-center divcss" >
+   <div class="inner_contanner" style="background-color:yellow;">
+   <h2 class="text-primary ">{{mynotes}}</h2>
+   <a href="{%url 'dashboard:view_mynotes'%}"><h4 class="text-primary" style="color:white;font-weight:500;">My Notes</h4></a>
+   </div>
+   </div>
+
+   <div class="col-sm-4 text-center divcss" >
+   <div class="inner_contanner"style="background-color:green;">
+   <h2 class="text-primary ">{{allnotes}}</h2>
+   <a href="{%url 'dashboard:view_allnotes'%}"><h4 class=""style="color:white;font-weight:500;">All Notes</h4></a>
+   </div>
+   </div>  
+</div>
+</div>
+</section>
+{% endblock body %}

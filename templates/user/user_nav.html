@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Student-dashboard</title>
+    <!--bootstrap CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!--Boxicon CDN-->
+      <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"rel="stylesheet"/>
+    <!--google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+   
+     <!--Datatables bootstrap-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+
+
+<!--MY CSS-->
+ <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+     <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+     
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+         <i class='bx bxs-book-reader'style="font-size:1.8rem; color:blue"></i>
+        <a class="navbar-brand py-0 logost" href="/" >Study Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto hovereffect">
+           <li class="nav-item">
+              <a
+                class="nav-link active dropcss py-0"
+                aria-current="page"
+                href="{%url 'dashboard:user_home'%}"
+              >
+                Home
+              </a>
+            </li>
+           
+           
+           
+            
+            
+
+            <li class="nav-item dropdown dropcss">
+              <a
+                class="nav-link dropdown-toggle py-0"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Options
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right dpcss text-center"
+                aria-labelledby="navbarDropdown"
+              >
+                <a class="dropdown-item" href="{% url 'dashboard:forum' %}">Disscussion</a>
+                <a class="dropdown-item" href="{% url 'dashboard:notes'  %}">Create notes</a>
+                <a class="dropdown-item" href="{% url 'dashboard:texttotxt'  %}">Translator</a>
+
+                <a class="dropdown-item" href="{%url 'dashboard:notessharing'%}">Notessharing</a>
+                <a class="dropdown-item" href="{% url 'dashboard:todo'  %}">ToDo</a>
+                 <a class="dropdown-item" href="{% url 'dashboard:texttospeech' %}">Pdf to Speech</a>
+                <a class="dropdown-item" href="{% url 'dashboard:books' %}">Find books</a>
+              </div>
+            </li>
+
+           <li class="nav-item dropdown " >
+              <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img src="{{ user.profile.image.url }}" class="rounded-circle" alt="profile picture"
+                width="40px" height="40px">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right  text-center" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{%url 'accounts:user_profile'%}">Profile</a>
+                 <a class="dropdown-item" href="{%url 'accounts:change_password_after_login'%}">change Password</a>
+                <a class="dropdown-item" href="{%url 'accounts:Logout'%}">Logout</a>
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      {% if messages %} {% for msg in messages %}
+      <div class="alert alert-{{msg.tags}} alert-dismissible fade show my-0">
+        <strong>{{ msg }}</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      {% endfor %} {% endif %} {% block body %}{% endblock body %}
+    </main>
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href)
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <!--Datatables bootstrap-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#datatable').DataTable();
+} );
+</script> 
+</html>

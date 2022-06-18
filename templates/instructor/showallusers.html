@@ -1,0 +1,83 @@
+
+{% extends 'instructor/admin_base.html' %}
+{% load static %}
+
+{% block body %}
+<style>
+.tfont {
+  font-size: 1.1rem;
+  font-weight: 400;
+font-family: 'Poppins', sans-serif;
+ 
+}
+.usertable{
+box-shadow: 4px 4px 4px 4px lightgray;
+ padding-top:1%;
+width: 100%;
+background-color: #eee5e5;
+       }
+      
+.tablecss{
+      box-shadow: 4px 4px 4px 4px lightgray;
+      width: 100%;
+      background-color: #eee5e5;
+      padding-top:1%;
+		  overflow-x: visible;
+       }
+</style>
+<div id="page-container" >
+ <!-- Main Container -->
+<main id="main-container">
+<!-- Page Content -->
+<h3 class="text-center notesText">View Users</h3> 
+<div class="content">   
+	           
+<div class=" container usertable mt-4 " ><div >
+
+<table id="datatable" class=" mt-4 table table-bordered table-striped table-vcenter js-dataTable-full-pagination" style=" color:gray;" id="datatable">
+<thead style="background-color : #607d8b; color:white;" >
+    <tr>
+		 <th scope="col">ID</th>
+        {% comment %} <th scope="col">Profile</th> {% endcomment %}
+        <th scope="col">Username</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+          <th scope="col">Branch</th>
+        <th scope="col">Email</th>
+        <th scope="col">Action</th>
+	</tr>
+</thead>
+<tbody>
+				{% for userData in users %}
+    <tr>
+        <th class="tfont" scope="row">{{userData.id}}</th>
+        {% comment %} <td class="tfont rounded-circle"><img style="width: 40px;height:40px; border-radius: 50%;" src="{{userData.image.url}}" alt="this is it."></td> {% endcomment %}
+        <td class="tfont">{{userData.user.username}}</td>
+        <td class="tfont">{{userData.user.first_name}}</td>
+        <td class="tfont">{{userData.user.last_name}}</td>
+        <td class="tfont">{{userData.branch}}</td>
+        <td class="tfont">{{userData.user.email}}</td>
+
+        <td class="tfont">
+
+        <a href="{% url 'dashboard:delete_user' userData.id %}"> <button class="btn  btn-sm"style="background-color:#e60000; color:white;" onclick="window.mytest()">Delete</button></a>
+        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this user?');
+        if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+            
+        </td>
+        
+    </tr>
+    {% endfor %}
+				</tbody>
+</table>
+</div>
+</div>
+</div>
+ <!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+</div>
+{% endblock body %}
+
+
+ 

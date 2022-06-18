@@ -1,0 +1,94 @@
+{% load static %}
+{% if user.is_superuser or user.is_staff %}
+<html lang="en" class="no-focus">
+    <head>
+      <!--Bootstrap CDN-->>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+   <!--Boxicon-->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!--My CSS-->
+   <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+   <link rel="stylesheet" id="css-main" href="{% static 'css1/codebase.min.css' %}"/>
+
+    </head>
+    <body>
+    <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
+           
+         {% include "instructor/sidebar.html" %}
+         {% include "instructor/admin_nav.html" %}
+            <!-- Main Container -->
+          <main id="main-container">
+              <!-- Page Content -->
+             <div class="content">
+
+
+
+
+{% else %}
+  {% include "user/user_nav.html" %}
+{% endif %}
+{% load static %}
+{% block body %}
+{% load crispy_forms_tags %}
+<style>
+    .f2{
+           font-weight:800;
+          font-size:2rem;
+         }
+         .bluebtn{
+            background-color:#1a8cff;
+</style>
+<div class="container ">
+
+    <form method="POST">
+        <div class="form-group">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 mt-4 f2" >Update Reply</legend>
+        </fieldset>
+         <label style="font-size:1rem; font-weight:bold;">Reply Content</label>
+        {{form|crispy}}
+        <input type="hidden" name="post_id" value="{{post_id}}"> 
+        <div class="form-group">
+            <button href="" class="btn btn-primary bluebtn" type="Update">
+            Update
+            </button>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+</main>
+</div>   
+</div>
+ <!-- Codebase Core JS -->
+<script src="{% static 'js/core/jquery.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.scrollLock.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.appear.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.countTo.min.js' %}"></script>
+<script src="{% static 'js/core/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/codebase.js' %}"></script>
+
+</body>
+</html>
+{% endblock body%}

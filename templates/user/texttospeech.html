@@ -1,0 +1,69 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+
+  
+     
+<style>
+  p{
+  font-size: 1.2rem;
+  font-weight: 500;
+padding-top:5%;
+margin-bottom:0;
+  color: #000;
+  color: #000 !important;
+  font-family: 'Archivo Black', sans-serif;
+  }
+</style>
+ {% comment %} <section style="background-color:lightblue;">
+    <center> <p >Type or paste your text and select your desired language to see its translated form and listen by clicking on play button. </p></center>
+ 
+ 
+   
+    </section> {% endcomment %}
+
+   <div class="box" style="">
+    <div class="wrapper mt-4">
+      <header>Pdf  To Speech</header>
+      <hr>
+      <form action="texttospeech" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+         <div class="row">
+
+  <div class="form-group">
+    <label for="exampleFormControlFile1"><small>Chose file to translate</small></label>
+    <input type="file" value="{{value.pdf}}" class="form-control-file" name="pdf" >
+  </div>
+        </div>
+        <div class="row">
+          <label>Select Voice</label>
+          <div class="outer">
+            <select class="tbtn2" name="lang">
+                <option value="">Choose...</option>
+               <option  value="en">English</option>
+               <option value="hi">Hindi</option>
+                <option value="gu">gujarati</option>
+                <option value="kn">Kanada</option>
+                <option value="te">Telugu</option>
+                <option value="ml">malayalam</option>
+                <option value="th">Thai</option>
+                <option value="ta">Tamil</option>
+                <option value="ur">Urdu</option>
+                <option value="ne">Nepali</option>
+                <option value="fr">Frensh</option>
+                <option value="ja">Japanese</option>
+                <option value="zh-cn">Chinese</option>
+                <option value="ru">Russian</option>
+            </select>
+          </div>
+        </div>
+        <button class="ttotbtn tbtn2">Convert To Speech</button>
+      </form>
+       {% if music %}
+       <p style="font-weight:bold;font-size:1rem;">Listen Audio</p>
+      <audio controls style="color:red;">
+  <source src="{%static "speech.mp3" %}"  type="audio/mp3">
+</audio>
+{% endif %} 
+</div>
+{% endblock body %}

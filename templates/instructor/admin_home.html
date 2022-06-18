@@ -1,0 +1,143 @@
+{% extends 'instructor/admin_base.html' %}
+{% load static %}
+{% block body %} 
+
+<style>
+.container1 {
+	background-color: lightgrey;
+	border-radius: 8px;
+}
+
+h2, h4 {
+	padding: 10px;
+}
+
+.mydiv:hover {
+	transform: translateY(-10px)
+}
+
+.glow {
+	font-size: 80px;
+	color: #fff;
+	text-align: center;
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+  text-shadow :0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+	0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+
+  to {
+	text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px
+		#ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+.tfont {
+  font-size: 0.9rem;
+  font-weight: 400;
+font-family: 'Poppins', sans-serif;
+ 
+}
+</style>
+
+            <main id="main-container">
+                <div class="content">
+ 
+                    <div class="row gutters-tiny invisible shadow" data-toggle="appear">
+                    
+                        <!-- Row #1 -->
+                         <div class="col-6 col-md-4 col-xl-3 box" >
+                            <a class="block text-center" href="{% url 'dashboard:pending_notes' %}">
+                                <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left "style=" background-color:  #e68a00; ">
+                                    <div class="ribbon-box" style="color:#000;font-size:1.5rem;">{{pending_notes}}</div>
+                                    <p class="mt-5">
+                                        <i class='bx bxs-book-add'style="font-size:3.1rem;color: #fff;"></i>
+                                    </p>
+                                    <p class="font-w600 " style=" color:#fff;font-weight:700; font-size:1.3rem;">Pending Notes</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3 box" >
+                            <a class="block text-center" href="{% url 'dashboard:accepted_notes' %}">
+                                <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left "style=" background-color: #009933;">
+                                    <div class="ribbon-box" style="color:#000;font-size:1.5rem;">{{accepted_notes}}</div>
+                                    <p class="mt-5">
+                                        <i class='bx bxs-book-add'style="font-size:3.1rem;color: #eee5e5;"></i>
+                                    </p>
+                                    <p class="font-w600 " style=" color:#fff;font-weight:700; font-size:1.3rem;">Accepted Notes</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3 box">
+                            <a class="block text-center" href="{% url 'dashboard:rejected_notes' %}">
+                                <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left "style="background-color:#ff3300;">
+                                    <div class="ribbon-box" style="color:#000;font-size:1.5rem;">{{rejected_notes}}</div>
+                                    <p class="mt-5">
+                                         <i class='bx bxs-book'style="font-size:3.1rem;color: #eee5e5;"></i>
+                                    </p>
+                                    <p class="font-w600" style=" color:#fff;font-weight:700; font-size:1.3rem;">Rejected Notes</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3 box">
+                            <a class="block text-center" href="{% url 'dashboard:all_notes' %}">
+                                <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left "style="background-color: #005ce6;">
+                                    <div class="ribbon-box" style="color:#000;font-size:1.5rem; ">{{all_notes}}</div>
+                                    <p class="mt-5">
+                                        <i class='bx bxs-folder-open'style="font-size:3.1rem;color: #eee5e5;"></i>
+                                    </p>
+                                    <p class="font-w600 "style=" color:#fff;font-weight:700; font-size:1.3rem;">All Notes</p>
+                                </div>
+                            </a> 
+                        </div>
+
+                        <!-- END Row #1 --> 
+                    </div>
+                    
+                </div> 
+                
+       
+<div class="container card  mt-4"  style="width:88%;">
+	<div class="card-body">
+      <h1 class="text-success text-center"></h1>
+      <h4 class="text-center text-danger" style="font-weight:700; font-size:1.6rem;">Recently Logged In users</h4>	
+      <table  class="table table-striped table-bordered ">
+		     <thead style="background-color : #607d8b;color:white; ">
+			<tr>
+				<th scope="col">ID</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Username</th>
+                <th scope="col">Last Login</th>
+                <th scope="col">Join date</th>
+                <th scope="col">Action</th>
+			</tr>
+				</thead>
+
+				<tbody>
+				{% for userData in data %}
+          <tr>
+             <th scope="row">{{userData.id}}</th>
+             <td class="tfont"><img style="width: 45px;  height:45px; border-radius: 50%;" src="{{userData.image.url}}" alt="this is it."></td>
+             <td class="tfont">{{userData.user.username}}</td>
+             <td class="tfont"> {{userData.user.last_login }}</td>
+            <td class="tfont">{{ userData.user.date_joined }} </td>
+         <td class="tfont">
+
+        <a href="{% url 'dashboard:delete_user' userData.id %}"> <button class="btn btn-danger btn-sm" onclick="window.mytest()" style="background-color:red;">Delete</button></a>
+        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this user?');
+        if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+            
+        </td>
+       </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+
+</main>
+
+
+{% endblock body %}

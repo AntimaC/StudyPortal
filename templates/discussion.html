@@ -1,0 +1,268 @@
+{% load static %}
+{% if user.is_superuser or user.is_staff %}
+<html lang="en" class="no-focus">
+    <head>
+      <!--Bootstrap CDN-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+   <!--Boxicon-->
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!--My CSS-->
+   <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+  <link rel="stylesheet" id="css-main" href="{% static 'css1/codebase.min.css' %}"/>
+
+    </head>
+    <body>
+    <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
+           
+         {% include "instructor/sidebar.html" %}
+         {% include "instructor/admin_nav.html" %}
+            <!-- Main Container -->
+          <main id="main-container">
+              <!-- Page Content -->
+             <div class="content">
+
+ <style>
+              .margin{
+                margin-top:-3%;
+                 
+              }
+                  .post{
+                   
+                    font-weight:600;
+                   font-family: 'Poppins', sans-serif;
+                   
+                  } 
+            .text{
+                    font-weight:400;
+                   font-family: 'Poppins', sans-serif;
+                 
+                  } 
+            .font{
+                   font-weight:600;
+                   }
+            .forumcardheader {
+                
+              text-transform: uppercase;
+             
+            }
+         .f{
+            font-weight:900;
+           }
+       .f2{
+           font-weight:900;
+          font-size:2.5rem;
+         }
+         .allbtn:hover{
+            transform: scale(1.1);
+         }
+         .bluebtn{
+            background-color:#1a8cff;
+            
+         }
+         .hr{border: none;
+    height: 1px;
+    
+    
+    background-color: gray;}
+</style>   
+ <a href="{%url 'dashboard:forum_a'%}"><button class="btn btn-primary mb-4 text bluebtn d-inline mt-3" style="margin-left:2%;">Go Back</button></a> 
+
+<div class="container-fluid"style="margin-top:5%">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center"> <img src="/media/{{post.image}}"
+                            class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">
+                        <div class="media-body ml-3 post" style="text-transform: uppercase;"> <a data-abc="true">{{post.user1}}</a>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <div class="post">Date and Time Of Post :</div>
+                            <div><strong class="f">{{post.timestamp}}</strong></div>
+                        </div>
+                    </div>
+                </div>         
+                <div class="card-body">
+                    <p class="text">{{post.post_content|linebreaks}}</p>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    
+                    <div class="px-4 pt-3">  <a href="{% url 'dashboard:delete_post' post.id %}"> <button class="btn btn-danger btn-sm text" onclick="window.mytest()"style="background-color: #e60000;">Delete</button></a>
+                            <script type="text/javascript">window.mytest = function() { var isValid = confirm('If you click ok then its delete this post and related reply on it. Are you sure to delete?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                             </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if post.replie_set.count <= 1 %}
+<h4>{{post.replie_set.count}} Answer </h4>
+{% else %}
+<h4>{{post.replie_set.count}} Answers</h4>
+{% endif %}
+                       
+{% for reply in replies %}
+
+<div class="media my-4 "style="margin-left:8%;margin-bottom:20%; width:60%;">
+          <img src="/media/{{reply.image}}"  
+                              class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">
+            <div class="media-body">
+               <p class="font-weight-bold my-0 d-inline" style="text-transform: uppercase;">{{reply.user}}</p> &nbsp;	&nbsp;<span class="badge badge-secondary d-inline">at {{reply.timestamp}}</span> 
+               <p class="mt-2 ">{{reply.reply_content|linebreaks}}</p>
+            </div>
+        </div>
+        {% if user.is_superuser or user.is_staff %}
+                  <a href="{% url "dashboard:edit_reply" pk=reply.id %}" data-abc="true" style="margin-left:9%;">Edit </a>
+                 {% endif %}
+                   
+                  {% if reply.user == request.user and request.user  != request.user.is_staff %} 
+                  <a href="{% url "dashboard:edit_reply" pk=reply.id %}" data-abc="true" style="margin-left:9%;"> Edit </a>
+                 {% endif %}
+                 {% if user.is_superuser or user.is_staff %}
+                      
+                            	&nbsp;	&nbsp; 	&nbsp;	&nbsp; <a href="{% url 'dashboard:delete_reply' reply.id %}" onclick="window.mytest()" class=" text-danger allbtn">Delete</a>
+                           <script type="text/javascript">window.mytest = function() { var isValid = confirm('If you click ok then its delete this post and related reply on it. Are you sure to delete?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+                            
+                            {% endif %}
+     <hr style="margin-left:7%; width:70%; margin-top:0%;">
+  {% endfor %}
+      </div>
+
+
+ 
+</div>
+</main>
+</div>   
+</div>
+ <!-- Codebase Core JS -->
+<script src="{% static 'js/core/jquery.min.js' %}"></script>
+<script src="{% static 'js/core/popper.min.js' %}"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.scrollLock.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.appear.min.js' %}"></script>
+<script src="{% static 'js/core/jquery.countTo.min.js' %}"></script>
+<script src="{% static 'js/core/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/codebase.js' %}"></script>
+
+</body>
+</html>
+
+
+
+{% else %}
+{% include "user/user_nav.html" %}
+
+{% load crispy_forms_tags %}
+{% block body %}
+
+<br><section>
+      <div >
+        <div class="container-fluid "  style="margin-bottom: 5%;    text-align: center;">
+
+            <center><h5 class="display-5 mb-4 f2 margin  ">Aad reply on this post </h5></center>
+            <center><a href="{%url 'dashboard:forum'%}"><button class="btn btn-primary mb-4 text bluebtn">Go to forum Home page</button></a> </center>
+
+        </div>
+      </div>
+    </section>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center"> <img src="/media/{{post.image}}"
+                            class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">
+                        <div class="media-body ml-3 post" style="text-transform: uppercase;"> <a data-abc="true">{{post.user1}}</a>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <div class="post">Date and Time Of Post :</div>
+                            <div><strong class="f">{{post.timestamp}}</strong></div>
+                        </div>
+                    </div>
+                </div>         
+                <div class="card-body">
+                    <p class="text">{{post.post_content|linebreaks}}</p>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    
+                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary text bluebtn" data-target="#reply" data-toggle="modal"><i
+                      class="ion ion-md-create"></i>&nbsp; Add Reply</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ {% if post.replie_set.count <= 1 %}
+<h4>{{post.replie_set.count}} Answer </h4>
+{% else %}
+<h4>{{post.replie_set.count}} Answers</h4>
+{% endif %}
+                       
+{% for reply in replies %}
+    
+  
+        <div class="media my-4 "style="margin-left:8%;margin-bottom:20%; width:60%;">
+          <img src="/media/{{reply.image}}"  
+                              class="d-block ui-w-40 rounded-circle" alt="profileimage"style="width: 40px;height: 40px;">
+            <div class="media-body">
+               <p class="font-weight-bold my-0 d-inline" style="text-transform: uppercase;">{{reply.user}}</p> &nbsp;	&nbsp;<span class="badge badge-secondary d-inline">at {{reply.timestamp}}</span> 
+               <p class="mt-2 ">{{reply.reply_content|linebreaks}}</p>
+            </div>
+        </div>
+        
+                   
+                  {% if reply.user == request.user %} 
+                  <a href="{% url "dashboard:edit_reply" pk=reply.id %}" data-abc="true" style="margin-left:9%;"> Edit </a>
+                 {% endif %}
+                 
+     <hr style="margin-left:7%; width:70%; margin-top:0%;">
+  {% endfor %}
+      </div>
+
+<div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="modal-body">
+          <form action="/discussion/{{post.id}}" method="POST"> {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Post Your Solution Here</label>
+              <input type="hidden" name="post_id" value="{{post.id}}">
+              {{form|crispy}}
+          </div>
+          {% else %}
+          <h3>Please Login first to post a reply</h3>
+          {% endif %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Post Solution</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+{% endif %}

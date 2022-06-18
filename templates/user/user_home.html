@@ -1,0 +1,116 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+
+ <section style="background-color:#fff;">
+  <marquee class="marquee" behavior="scroll" direction=left" "> </marquee>
+<section class="container text-center">
+  <h2>Welcome</h2>
+  <hr class="hr"> <br>  
+<div class="container">
+  <div class="row my-4">
+    <div class="col">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm d-flex">
+              <a href="{%url 'dashboard:forum'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/forum.jpg' %}" alt="Notes image">
+                <div class="card-body">
+            <h5 class="card-title ">
+             disscussion Forum
+            </h5>
+        <p class="hcardP">Have any  doubts or  questions, No problem post your question here and get solution from your friends!</p>
+          </div>
+              </div>
+            </div>
+
+             <div class="col-sm d-flex" >
+              <a href="{%url 'dashboard:todo'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/todos.jpg' %}" alt="Notes image">
+                <div class="card-body">
+            <h5 class="card-title ">
+              ToDo
+            </h5>
+             <p class="hcardP">Add your ToDo lists for your day and remove them as you finish </p><br>
+          </div>
+              </div>
+            </div>
+
+            <div class="col-sm d-flex">
+              <a href="{%url 'dashboard:notes'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/notes.jpg' %}" alt="Notes image">
+                <div class="card-body">
+            <h5 class="card-title ">
+              Create Notes
+            </h5>
+              <p class="hcardP" >Create Notes to refer them later. They are stored permanently until deleted </p>
+          </div>
+              </div>
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+      
+    </div>
+<div class="container">
+  <div class="row my-4">
+    <div class="col">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm d-flex">
+              <a href="{%url 'dashboard:notessharing'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/notessharing.jfif' %}" alt="trans image">
+                <div class="card-body">
+            <h5 class="card-title ">
+            Share Notes
+            </h5>
+             <p class="hcardP">share you notes and E book here and find notes and E books uploaded by  others</p><br>
+          </div>
+              </div>
+            </div>
+
+             <div class="col-sm d-flex">
+              <a href="{%url 'dashboard:texttospeech'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/reader.jpg' %}" alt="Notes image">
+                <div class="card-body">
+            <h5 class="card-title ">
+            Pdf Reader
+            </h5>
+           <p class="hcardP">Want to listen your E book in your desired language, No problem import your book pdf and listen them in your language</p>
+          </div>
+              </div>
+            </div>
+
+            
+               <div class="col-sm d-flex mb-4">
+              <a href="{%url 'dashboard:texttotxt'%}">
+              <div class="card card-body flex-fill custumcss">
+                 <img class="card-img-top" src="{% static 'images/translate.png' %}" alt="Notes image">
+                <div class="card-body">
+            <h5 class="card-title ">
+          Language translator
+            </h5>
+               <p class="hcardP"> Are you troubling to find meaning of any language word, No problem Enter word and get it's meaning in your language</p>
+
+          </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div> 
+      
+    </div>
+  </section>
+</section>
+{% endblock body %}
+

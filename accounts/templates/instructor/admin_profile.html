@@ -1,0 +1,45 @@
+
+{% extends 'instructor/admin_base.html' %}
+{% load static %}
+  
+{% block title %} Profile {% endblock %}
+{% block profileactive %} active {% endblock profileactive %}
+{% block body %} 
+<br>
+
+<div class="container " style="margin-top:10%;">
+    <div class="row">
+        <div class="col-lg-12 col-lg-offset-0">
+
+            <div class="row pad">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <li class="list-group-item">
+                                        
+                                    Profile Picture:<strong class="float-right"> <img src="{{ user.profile.image.url }}" class="rounded-circle" alt="profile picture" style=" width:70px; height:70px;">
+                                    </strong></li>
+                                 <li class="list-group-item">
+                                    Username: <strong class="float-right">{{user.username}}</strong>
+                                </li> 
+                                 <li class="list-group-item">
+                                    Full Name: <strong class="float-right">{{request.user.get_full_name}}</strong>
+                                </li> 
+                                <li class="list-group-item">
+                                    Email: <strong class="float-right">{{user.email}}</strong>
+                                </li>
+                                 <li class="list-group-item">
+                                    <a href="{%url 'accounts:admin_editprofile'%}"><button class="btn btn-primary">Update Profile</button></a> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %} 

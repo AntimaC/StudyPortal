@@ -1,0 +1,29 @@
+{% block body %}
+<style>
+    p{
+        font-size:1.7rem;
+    }
+    h1{
+        font-size:4rem;
+    }
+</style>
+<section class='text-center container'>
+
+    <div class="container">
+
+        <div class="content-section p-0 mt-5">
+
+            <div class="m-3">
+              <center>  <h1>{{title|safe}}</h1></center>
+            </div>
+
+            <hr class="p-0 m-0">
+            <p class="description m-5 p-5">
+                {{description|safe}}
+            </p>
+         
+        </div>
+    </div>
+
+</section>
+{% endblock body %}

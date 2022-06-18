@@ -1,0 +1,47 @@
+{% extends 'user/user_nav.html' %}
+{% load static %}
+{% block body %}
+
+<br><br>
+<a href="{%url 'dashboard:notessharing'%}" style="float: right;  margin-right: 114px;"><button class="btn btn-primary">Go Back</button></a>
+
+<div class="container card shadow mt-5">
+
+	<div class="card-body">
+           <h4 class="text-center text-danger">All Notes</h4>	
+    <table id="datatable" class="table table-striped table-bordered  " style="width:100%" >
+				<thead style="background-color : #607d8b;">	
+    <tr>
+		 <th scope="col">S.No</th>
+          <th scope="col">Uploaded By</th>
+        <th scope="col">Uploading Date</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Download Notes</th>
+		<th scope="col">File Type</th>
+		<th scope="col">Description</th>
+		<th scope="col">Status</th>
+		
+	</tr>
+</thead>
+<tbody>
+	{% for i in notes %}
+    <tr>
+        <th class="tfont" scope="row">{{forloop.counter}}</th>
+         <td class="tfont">{{i.user.username}}</td>
+        <td class="tfont">{{i.uploadingdate}}</td>
+        <td class="tfont">{{i.branch}}</td>
+        <td class="tfont">{{i.subject}}</td>
+		<td class="tfont"><a href="{{i.notesfile.url}}" class="btn btn-success btn-sm" download style="background-color:green;">Download</a></td>
+		<td class="tfont">{{i.filetype}}</td>
+	    <td class="tfont">{{i.description}}</td>
+        <td class="tfont">{{i.status}}</td>
+       
+	</tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,72 @@
+{% extends "instructor/admin_base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block body %}
+ <style>
+.contentsec{
+  margin-left: 20%;
+ 
+    height:50%;
+    background-color:lightgray;
+    width:40%;
+  padding-left:5%;
+  padding-bottom:1%;
+  margin-bottom: 5%;
+  padding-top:1%;
+}
+
+#id_first_name{
+width:90%;
+display:inline;
+
+}
+#id_last_name{
+width:90%;
+display:inline;
+
+}
+#id_email{
+  width:90%;
+display:inline;
+}
+h5{
+ margin-left: 5%;
+    margin-top: 1%;
+    color:blue;
+    
+}
+label{
+  color:red;
+  font-weight:700;
+  font-size.5rem;
+}
+button1{
+  margin-bottom:5%;
+}
+</style> 
+<br><br> <br><br>              
+     <div class="contentsec mt-4 ">
+      
+      <div class="media">
+       
+        <img class="rounded-circle " src="{{ user.profile.image.url }}" width="150px" height="150px"> 
+        <div class="media-body">
+        </div>
+      </div>
+  
+      <form method="POST" action="admin_editprofile" enctype="multipart/form-data" class="djform">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend style="padding-top:5%;color:blue;">Profile Info</legend>
+             
+              {{ u_form|crispy }}
+              {{ p_form|crispy }}
+              
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-primary button1" type="submit">Update</button>
+          </div>
+      </form>
+    </div>
+     
+{% endblock body %}

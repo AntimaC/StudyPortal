@@ -1,0 +1,112 @@
+{% extends "user/user_nav.html" %}
+
+{% load crispy_forms_tags %}
+
+{% comment %} {% load static %}
+{% block body %}
+
+               <section >
+      <div class="mb-4  ">
+        <div class="container-fluid "style="margin-top:5%">
+           <center> <hp class="display-5 " style="font-weight:600; font-size:1.2rem; ">Edit Your profile information if You want</p></center>
+        </div>
+      </div>
+    </section>                 
+     <div class="contentsection mt-2 "> 
+      <div class="media">
+        <img class="rounded-circle " src="{{ user.profile.image.url }}" width="150px" height="150px">
+        <div class="media-body">
+        </div>
+      </div>
+      <form method="POST" enctype="multipart/form-data" class="djform" action="user_editprofile">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend style="padding-top:8%;color:black;">Profile Info</legend>
+              {{ u_form|crispy }}
+              {{ p_form|crispy }} 
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-primary" type="submit">Update</button>
+          </div>
+      </form>
+    </div>
+     
+{% endblock body %} {% endcomment %}
+
+
+
+{% block title %} Log In {% endblock %}
+{% block loginactive %} active {% endblock loginactive %}
+{% load static %}
+{% block body %}  
+
+ <div class="mb-4  ">
+        <div class="container-fluid "style="margin-top:3%">
+           <center> <hp class="display-5 " style="font-weight:600; font-size:1.2rem; ">Edit Your profile information if You want</p></center>
+        </div>
+      </div>
+    </section>                 
+     <div style="margin-top: -3%;"> 
+      
+  <div class="container">
+    <div class="row mt-5 pt-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-3 shadow">
+                <div class="card-body">
+              
+                    
+      <div class="media">
+        <img class="rounded-circle d-inline" src="{{ user.profile.image.url }}" style="width:170px; height:170px;">
+        	<div class=" "style="margin-top:13%; margin-left:6%;">
+           <form method="POST" class="mt-4 mb-4"  enctype="multipart/form-data" class="djform" action="user_editprofile">
+    {% csrf_token %}
+   {{ p_form|crispy }} 
+          
+          </div>
+        <div class="media-body">
+        </div>
+      </div>
+   
+   {{ u_form|crispy }}
+    <lable>Branch</label> 
+{{ b_form|crispy }} 
+            {% comment %} <div class="form-group">
+              <label style="font-weight:600;">First Name</label>
+            <input type="text" class=" form-control"style="width:100%;" name="firstname" value="{{data.user.first_name}}" placeholder="Old Password" />
+            </div>
+            <div class="form-group">
+              <label style="font-weight:600;"> Last Name</label>
+          <input type="text" class=" form-control"style="width:100%;" name="lastname" value="{{data.user.last_name}}" placeholder="New Password" /> 
+         </div> 
+         	
+        <div class="form-group">
+          <label style="font-weight:600;"> Email</label>
+        <input type="email" class="form-control"style="width:100%;" name="email" value="{{data.user.email}}" placeholder=" confirm New Password" />
+        </div> 
+        
+							<div class="form-group">
+								<label style="font-weight:600;"> Branch</label>
+								<select class="form-control" name="branch">
+									<option value="Computer Science">Computer Science</option>
+									<option value="Mechanical">Mechanical</option>
+									<option value="Civil">Civil</option>
+									<option value="Electronics">Electronics</option>
+									<option value="Electric">Electric</option>
+									<option value="IT">IT</option>
+								</select>
+							</div>
+              	<div class="form-group"> {% endcomment %}
+                  
+              
+              
+              </div>
+            <div class="form-group">
+                     <input type="submit" class="rlbtn mb-2" name="signup_submit"  value="Update Profile" style="margin-left: -13%; width:150px;" />  
+                     </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+  {% endblock body%} 

@@ -1,0 +1,148 @@
+{% extends 'instructor/admin_base.html' %}
+{% comment %} 
+{% extends 'instructor/admin_base.html' %}
+{% load static %}
+{% block body %}
+<style>
+.tfont {
+  font-size: 1rem;
+  font-weight: 400;
+font-family: 'Poppins', sans-serif;
+ 
+}
+
+</style>
+<div id="page-container" >
+ <!-- Main Container -->
+<main id="main-container">
+<!-- Page Content -->
+<div class="content"> 
+	<h3 class="text-center notesText">Accepted Notes</h3><br>              
+<div class="tablecss container  mt-5" ><div >
+
+<table id="datatable" class=" table table-bordered table-striped table-vcenter mt-4 " style=" color:gray; ">
+<thead style="background-color : #607d8b; color:white;" >
+    <tr>
+		<th>S.No</th>
+        <th >Uploaded By</th>
+		<th>Uploading Date</th>
+		<th>Branch</th>
+		<th>Subject</th>
+		<th>Download Notes</th>
+		<th>File Type</th>
+		<th>Description</th>
+		<th>Status</th>
+        <th class="d-none d-sm-table-cell">Assign Status</th>
+		<th>Action</th>
+	</tr>
+</thead>
+{% for i in notes %}
+<tbody>
+  <tr>
+     <td class="tfont">{{forloop.counter}}</td>
+    <td class="tfont">{{i.user.username}}</td>
+	<td class="tfont">{{i.uploadingdate}}</td>
+	<td class="tfont">{{i.branch}}</td>
+	<td class="tfont">{{i.subject}}</td>
+	<td class="tfont"><a href="{{i.notesfile.url}}" class="btn btn-success btn1css" download style="background-color:green;">Download</a></td>
+	<td class="tfont">{{i.filetype}}</td>
+	<td class="tfont">{{i.description}}</td>
+	<td class="tfont">{{i.status}}</td>
+	<td class="tfont"><a href="{% url 'dashboard:assign_status' i.id %}" class="btn btn-success btn1css" style="background-color:green;">Assign&nbsp;Status</a></td>
+    <td class="tfont"><a href="{% url 'dashboard:delete_notes' i.id %}" class="btn btn-danger btn2css" style="background-color:red;" onclick="return confirm('Are your sure to Delete ?')">Delete</a></td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+ <!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+</div>
+{% endblock body %}
+ {% endcomment %}
+
+
+ 
+
+{% load static %}
+{% block body %}
+<style>
+.tfont {
+  font-size: 1rem;
+  font-weight: 400;
+font-family: 'Poppins', sans-serif;
+ 
+}
+.usertable{
+           box-shadow: 4px 4px 4px 4px lightgray;
+          width: 100%;
+         background-color: #eee5e5;
+         padding-top:1%;
+		  overflow-x: visible;
+       }
+</style>
+<div id="page-container" >
+ <!-- Main Container -->
+<main id="main-container">
+<!-- Page Content -->
+<h3 class="text-center notesText">Accepted Notes</h3><br> 
+<div class="content">   
+	           
+<div class=" container usertable  " ><div >
+
+<table id="datatable" class=" mt-4 table table-bordered table-striped table-vcenter js-dataTable-full-pagination" style=" color:gray;">
+<thead style="background-color : #607d8b; color:white;" >
+    <tr>
+		 <th scope="col">S.No</th>
+        <th scope="col">Uploaded By</th>
+        <th scope="col">Uploading Date</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Download Notes</th>
+		<th scope="col">File Type</th>
+		<th scope="col">Description</th>
+		<th scope="col">Status</th>
+		<th scope="d-none d-sm-table-cell">Assign Status</th>
+		<th scope="col">Action</th>
+	</tr>
+</thead>
+<tbody>
+				{% for i in notes %}
+    <tr>
+        <th class="tfont" scope="row">{{forloop.counter}}</th>
+        <td class="tfont">{{i.user.username}}</td>
+        <td class="tfont">{{i.uploadingdate}}</td>
+        <td class="tfont">{{i.branch}}</td>
+        <td class="tfont">{{i.subject}}</td>
+		<td class="tfont"><a href="{{i.notesfile.url}}" class="btn btn-success btn1css" download style="background-color:green;">Download</a></td>
+		<td class="tfont">{{i.filetype}}</td>
+	    <td class="tfont">{{i.description}}</td>
+        <td class="tfont">{{i.status}}</td>
+		 <td class="tfont"><a href="{% url 'dashboard:assign_status' i.id %}" class="btn btn-success btn1css" style="background-color:green;">Assign&nbsp;Status</a></td>
+        <td class="tfont">
+
+        <a href="{% url 'dashboard:delete_notes' i.id %}"> <button class="btn btn-danger btn-sm" style="background-color:red;" onclick="window.mytest()">Delete</button></a>
+        <script type="text/javascript">window.mytest = function() { var isValid = confirm('Are you sure to Delete this user?');
+        if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");}}</script>
+            
+        </td>
+        
+    </tr>
+    {% endfor %}
+				</tbody>
+</table>
+</div>
+</div>
+</div>
+ <!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+</div>
+{% endblock body %}
+
+
+ 
+ 
